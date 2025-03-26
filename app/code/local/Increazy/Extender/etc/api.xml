@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <extender_configurable translate="title" module="extender">
+                <title>Configurable Product API</title>
+                <model>extender/api_configurable</model>
+                <methods>
+                    <associatedProducts translate="title" module="extender">
+                        <title>Get Associated Products of Configurable Product</title>
+                        <method>associatedProducts</method>
+                    </associatedProducts>
+                </methods>
+            </extender_configurable>
+        </resources>
+    </api>
+</config>

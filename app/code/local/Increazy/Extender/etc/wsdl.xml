@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+            <element name="configurableAssociatedProductsRequest">
+                <complexType>
+                    <sequence>
+                        <element name="sessionId" type="xsd:string"/>
+                        <element name="productId" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="configurableAssociatedProductsResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="typens:associatedProductsArray"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="associatedProductsArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:associatedProduct[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="associatedProduct">
+                <sequence>
+                    <element name="product_id" type="xsd:string"/>
+                    <element name="sku" type="xsd:string"/>
+                    <element name="name" type="xsd:string"/>
+                    <element name="price" type="xsd:string"/>
+                </sequence>
+            </complexType>
+        </schema>
+    </types>
+    <message name="configurableAssociatedProductsRequest">
+        <part name="parameters" element="typens:configurableAssociatedProductsRequest"/>
+    </message>
+    <message name="configurableAssociatedProductsResponse">
+        <part name="parameters" element="typens:configurableAssociatedProductsResponse"/>
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="configurableAssociatedProducts">
+            <input message="typens:configurableAssociatedProductsRequest"/>
+            <output message="typens:configurableAssociatedProductsResponse"/>
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="configurableAssociatedProducts">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}"/>
+        </port>
+    </service>
+</definitions>
