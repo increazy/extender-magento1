@@ -17,11 +17,45 @@
             <element name="configurableAssociatedProductsResponse">
                 <complexType>
                     <sequence>
-                        <element name="result" type="typens:associatedProductsArray"/>
+                        <element name="result" type="typens:configurableProductData"/>
                     </sequence>
                 </complexType>
             </element>
-            <complexType name="associatedProductsArray">
+            <complexType name="configurableProductData">
+                <sequence>
+                    <element name="super_attributes" type="typens:superAttributeArray"/>
+                    <element name="associated_products" type="typens:associatedProductArray"/>
+                </sequence>
+            </complexType>
+            <complexType name="superAttributeArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:superAttribute[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="superAttribute">
+                <sequence>
+                    <element name="attribute_id" type="xsd:string"/>
+                    <element name="code" type="xsd:string"/>
+                    <element name="label" type="xsd:string"/>
+                    <element name="options" type="typens:superAttributeOptionArray"/>
+                </sequence>
+            </complexType>
+            <complexType name="superAttributeOptionArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:superAttributeOption[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="superAttributeOption">
+                <sequence>
+                    <element name="id" type="xsd:string"/>
+                    <element name="label" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="associatedProductArray">
                 <complexContent>
                     <restriction base="soapenc:Array">
                         <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:associatedProduct[]"/>
@@ -34,6 +68,21 @@
                     <element name="sku" type="xsd:string"/>
                     <element name="name" type="xsd:string"/>
                     <element name="price" type="xsd:string"/>
+                    <element name="attributes" type="typens:productAttributeArray"/>
+                </sequence>
+            </complexType>
+            <complexType name="productAttributeArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAttribute[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="productAttribute">
+                <sequence>
+                    <element name="attribute_code" type="xsd:string"/>
+                    <element name="value_id" type="xsd:string"/>
+                    <element name="value_label" type="xsd:string"/>
                 </sequence>
             </complexType>
         </schema>
